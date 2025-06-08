@@ -21,37 +21,41 @@ A RESTful API for a Book Review System built with Node.js, Express, and MongoDB.
 - Bcrypt for password hashing
 
 
-
 ## Environment Variables
 
 Create a `.env` file in the root directory with the following variables:
 
-```env
+env
 PORT=3000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 JWT_EXPIRES_IN=24h
 ```
 
+
 ## Setup Instructions
 
 1. Clone the repository
 2. Install dependencies:
    
+   cd Backend
    npm install
-
+   
 3. Create `.env` file with required environment variables
 4. Start the server:
+  
+   npm run dev  
+  
+USE Postman
 
-   npm run dev   
-
-
+## API Endpoints
 
 ### Authentication
 
 #### Register a new user
-```http
-POST /api/auth/signup
+note: you can customize you port using .env
+POST http://localhost:3000
+                           /api/auth/signup
 Content-Type: application/json
 
 {
@@ -59,10 +63,10 @@ Content-Type: application/json
     "email": "john@example.com",
     "password": "password123"
 }
-```
+
 
 #### Login
-```http
+http
 POST /api/auth/login
 Content-Type: application/json
 
@@ -70,12 +74,13 @@ Content-Type: application/json
     "email": "john@example.com",
     "password": "password123"
 }
-```
+
 
 ### Books
 
 #### Create a new book (Authenticated)
-```http
+Note: for token you can copy from postman under success: true there will a optio of token just copy the token
+http
 POST /api/books
 Authorization: Bearer <your_token>
 Content-Type: application/json
@@ -87,27 +92,27 @@ Content-Type: application/json
     "description": "A story of decadence and excess...",
     "publishedYear": 1925
 }
-```
+
 
 #### Get all books (with pagination)
-```http
+http
 GET /api/books?page=1&limit=10
 ```
 
 #### Get book by ID (with reviews)
-```http
+http
 GET /api/books/:id
-```
+
 
 #### Search books
-```http
+http
 GET /api/books/search?q=Gatsby
-```
+
 
 ### Reviews
 
 #### Add a review (Authenticated)
-```http
+http
 POST /api/reviews/:bookId
 Authorization: Bearer <your_token>
 Content-Type: application/json
@@ -116,10 +121,10 @@ Content-Type: application/json
     "rating": 5,
     "comment": "An excellent read!"
 }
-```
+
 
 #### Update a review (Authenticated)
-```http
+http
 PUT /api/reviews/:id
 Authorization: Bearer <your_token>
 Content-Type: application/json
@@ -128,13 +133,13 @@ Content-Type: application/json
     "rating": 4,
     "comment": "Updated review content"
 }
-```
+
 
 #### Delete a review (Authenticated)
-```http
+
 DELETE /api/reviews/:id
 Authorization: Bearer <your_token>
-```
+
 
 ## Pagination
 
@@ -143,21 +148,21 @@ Most endpoints that return lists support pagination:
 - `limit`: Items per page (default: 10)
 
 Example:
-```http
+http
 GET /api/books?page=2&limit=20
-```
+
 
 ## Error Handling
 
 The API returns consistent error responses:
 
-```json
+json
 {
     "success": false,
     "message": "Error message here",
     "error": "Detailed error information (in development)"
 }
-```
+
 
 ## Design Decisions
 
@@ -195,10 +200,11 @@ The API returns consistent error responses:
    - Add a review
    - Search for books
    - Update/delete review
+
 ## Database Schema
 
 ### User Model
-```javascript
+javascript
 {
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
@@ -207,7 +213,7 @@ The API returns consistent error responses:
 ```
 
 ### Book Model
-```javascript
+javascript
 {
   title: { type: String, required: true },
   author: { type: String, required: true },
@@ -227,3 +233,4 @@ javascript
   rating: { type: Number, required: true, min: 1, max: 5 },
   comment: { type: String, required: true }
 }
+
