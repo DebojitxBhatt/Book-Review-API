@@ -20,25 +20,7 @@ A RESTful API for a Book Review System built with Node.js, Express, and MongoDB.
 - Express Validator for input validation
 - Bcrypt for password hashing
 
-## Project Structure
 
-```
-Backend/
-├── src/
-│   ├── routes/           # Route handlers
-│   │   ├── auth.routes.js
-│   │   ├── book.routes.js
-│   │   └── review.routes.js
-│   ├── models/          # Database models
-│   │   ├── user.model.js
-│   │   ├── book.model.js
-│   │   └── review.model.js
-│   ├── middleware/      # Custom middleware
-│   │   └── auth.middleware.js
-│   └── server.js        # Main application file
-├── .env                 # Environment variables
-└── package.json
-```
 
 ## Environment Variables
 
@@ -51,56 +33,19 @@ JWT_SECRET=your_jwt_secret_key
 JWT_EXPIRES_IN=24h
 ```
 
-## Database Schema
-
-### User Model
-```javascript
-{
-  username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
-}
-```
-
-### Book Model
-```javascript
-{
-  title: { type: String, required: true },
-  author: { type: String, required: true },
-  genre: { type: String, required: true },
-  description: { type: String, required: true },
-  publishedYear: { type: Number },
-  averageRating: { type: Number, default: 0 },
-  totalReviews: { type: Number, default: 0 }
-}
-```
-
-### Review Model
-```javascript
-{
-  user: { type: ObjectId, ref: 'User', required: true },
-  book: { type: ObjectId, ref: 'Book', required: true },
-  rating: { type: Number, required: true, min: 1, max: 5 },
-  comment: { type: String, required: true }
-}
-```
-
 ## Setup Instructions
 
 1. Clone the repository
 2. Install dependencies:
-   ```bash
-   cd Backend
+   
    npm install
-   ```
+
 3. Create `.env` file with required environment variables
 4. Start the server:
-   ```bash
-   npm run dev   # for development
-   npm start     # for production
-   ```
 
-## API Endpoints
+   npm run dev   
+
+
 
 ### Authentication
 
@@ -250,12 +195,35 @@ The API returns consistent error responses:
    - Add a review
    - Search for books
    - Update/delete review
+## Database Schema
 
-## Future Improvements
+### User Model
+```javascript
+{
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true }
+}
+```
 
-- Add input sanitization
-- Implement rate limiting
-- Add user roles (admin, moderator)
-- Add image upload for book covers
-- Add caching layer
-- Add unit and integration tests 
+### Book Model
+```javascript
+{
+  title: { type: String, required: true },
+  author: { type: String, required: true },
+  genre: { type: String, required: true },
+  description: { type: String, required: true },
+  publishedYear: { type: Number },
+  averageRating: { type: Number, default: 0 },
+  totalReviews: { type: Number, default: 0 }
+}
+
+
+### Review Model
+javascript
+{
+  user: { type: ObjectId, ref: 'User', required: true },
+  book: { type: ObjectId, ref: 'Book', required: true },
+  rating: { type: Number, required: true, min: 1, max: 5 },
+  comment: { type: String, required: true }
+}
